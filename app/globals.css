@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.markdown > * {
+  all: revert;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
