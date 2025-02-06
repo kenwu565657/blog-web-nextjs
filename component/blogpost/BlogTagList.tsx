@@ -1,33 +1,19 @@
 import BlogTag from './BlogTag';
 
 interface BlogTagListProps {
-    blogTagNameList: string[];
+    blogTagNameList: Set<string>;
 }
 
 const BlogTagList = (props: BlogTagListProps) => {
     return (
-        <div className="bg-emerald-700 max-w-64 border-solid border-2 flex flex-col gap-y-10 p-3 divide-y-5">
-            <h6>Search By Tags</h6>
-            <input></input>
-            <div className="w-30 flex flex-row flex-wrap gap-3 border-y-4 border-solid p-3">
+            <div className="flex flex-row flex-wrap gap-3">
                 {
-                    props.blogTagNameList.map((blogTagName) => {
-                        return <BlogTag key={blogTagName} tagName={blogTagName} isSelected={true}/>
+                    Array.from(props.blogTagNameList).map((blogTagName) => {
+                        return <BlogTag key={blogTagName} tagName={blogTagName} isSelected={false}/>
 
                     })
                 }
             </div>
-
-            <div className="w-30 flex flex-row flex-wrap  gap-3 border-t-4 border-solid p-3">
-                {
-                    props.blogTagNameList.map((blogTagName) => {
-                        return (
-                            <BlogTag key={blogTagName} tagName={blogTagName} isSelected={false}/>
-                        )
-                    })
-                }
-            </div>
-        </div>
     );
 };
 
