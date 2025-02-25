@@ -1,8 +1,8 @@
 import {isBlank} from "@/utils/StringUtils";
 import {notFound} from "next/navigation";
 import BlogPostContent from "@/component/blogpost/BlogPostContent";
-import BackButton from "@/component/common/BackButton";
-import './blogpost.css';
+import {Suspense} from "react";
+import BlogPostContentLoadingFallBackComponent from "@/component/blogpost/BlogPostContentLoadingFallBackComponent";
 
 export default async function BlogPostContentPage({params,}: {
     params: Promise<{ blogpostId: string }>
@@ -14,10 +14,10 @@ export default async function BlogPostContentPage({params,}: {
     }
 
     return (
-        <div className="relative">
-            <BlogPostContent blogpostId={blogpostId}/>
-            <BackButton className={'left-50'}></BackButton>
+        <div>
+            <Suspense fallback={<BlogPostContentLoadingFallBackComponent />}>
+                <BlogPostContent blogpostId={blogpostId}/>
+            </Suspense>
         </div>
-
     )
 }

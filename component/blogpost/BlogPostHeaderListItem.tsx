@@ -3,32 +3,22 @@
 import {BlogPostHeader} from "@/interface/blogpost/BlogPostHeader";
 import React from "react";
 import {useIsHeaderActiveInViewObserver} from "@/hook/useIsHeaderActiveInViewObserver";
+import CommonImageComponent from "@/component/common/CommonImageComponent";
 
 interface BlogPostHeaderProps {
     blogPostHeader: BlogPostHeader
 }
 
 export default function BlogPostHeaderListItem(props: BlogPostHeaderProps) {
-    const handleOnClick = (event: React.MouseEvent<HTMLAnchorElement>): void => {
-        event.preventDefault();
-        const query: string = `${props.blogPostHeader.htmlHeaderType}`;
-        const sameHeaderTypeElement = document.querySelectorAll(query);
-        if (sameHeaderTypeElement) {
-            sameHeaderTypeElement[props.blogPostHeader.orderNumberOfSameHeaderType]?.scrollIntoView({behavior: "smooth"});
-        }
-    }
-    console.log(props.blogPostHeader);
     const { isActive } = useIsHeaderActiveInViewObserver(props.blogPostHeader.htmlHeaderType, props.blogPostHeader.orderNumberOfSameHeaderType);
-
     const paddingClass = getPaddingClassNameBaseOnHtmlHeaderType(props.blogPostHeader.htmlHeaderType);
 
     return (
         <li className={`${paddingClass} ${isActive ? 'border-green-500' : ''} border-l-8 my-2 p-2`}>
-            <img className={"inline pr-2"} src={getIconFileNameByIsActiveStatus(isActive)}></img>
+            <CommonImageComponent className={"inline pr-2"} src={getIconFileNameByIsActiveStatus(isActive)} isLocal={true}></CommonImageComponent>
            <a
                className={"hover:font-bold"}
-               href={`#`}
-               onClick={(e) => handleOnClick(e)}
+               href={`#${props.blogPostHeader.htmlHeaderType + props.blogPostHeader.orderNumberOfSameHeaderType}`}
            >
                {props.blogPostHeader.headerValue}
            </a>
