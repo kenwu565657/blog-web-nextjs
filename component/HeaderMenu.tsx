@@ -1,12 +1,12 @@
 import NavigationLink from "@/component/NavigationLink";
-import SearchInput from "@/component/SearchInput";
+import SearchComponent from "@/component/SearchComponent";
 
 export default function HeaderMenu() {
-    const headerStyle = "flex flex-row space-x-8";
+    const headerStyle = "flex items-center flex-col md:flex-row md:space-x-8";
 
     return (
         <div className={headerStyle}>
-            <SearchInput></SearchInput>
+            <SearchComponent></SearchComponent>
             <NavigationLink href={"/home"}>
                 <span className={headerStyle}>Home Page</span>
             </NavigationLink>

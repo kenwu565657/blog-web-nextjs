@@ -1,17 +1,17 @@
 import Link from 'next/link';
 import HeaderMenu from "@/component/HeaderMenu";
+import CommonImageComponent from "@/component/common/CommonImageComponent";
 
 const Header = () => {
     return (
-        <div className="w-full px-4 py-3 uppercase">
-            <div className="relative flex items-center justify-between">
+        <div className="relative px-4 py-1 left-0 top:0 bg-white mb-4">
+            <div className="items-center justify-between flex flex-col md:flex-row">
                 <Link href="/home">
-                    <h1 className="text-2xl"><b>C<span className="text-red-700">o</span>ntent Farm</b></h1>
+                    <CommonImageComponent className="min-w-44 max-w-80" src="/icon/contentFarm_logo_transparent_cutted.png" isLocal={true}></CommonImageComponent>
                 </Link>
                 <HeaderMenu></HeaderMenu>
             </div>
         </div>
-
     );
 }
 
