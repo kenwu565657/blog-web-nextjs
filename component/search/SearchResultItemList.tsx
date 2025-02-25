@@ -19,7 +19,7 @@ export default function SearchResultItemList(props: SearchResultItemListProps): 
     }
 
     return (
-        <div>
+        <div className="flex flex-col gap-2">
             {
                 props.searchResult.searchResultItemList.map((item: BlogPostSearchResult) =>
                     <BlogPostSearchResultCard key={item.id} blogPostSingleSearchResult={item}/>

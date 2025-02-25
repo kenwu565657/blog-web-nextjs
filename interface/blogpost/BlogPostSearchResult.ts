@@ -1,7 +1,7 @@
 export interface BlogPostSearchResult {
     id: string;
     title: string;
-    tagList: Set<string>;
+    tagList: string[];
     summary: string;
     authorName: string;
     postDate: string;
