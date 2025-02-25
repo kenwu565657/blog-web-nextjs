@@ -1,8 +1,12 @@
+import BlogPostCardLoadingFallBackComponent from "@/component/blogpost/BlogPostCardLoadingFallBackComponent";
+
 export default function Loading() {
-    // You can add any UI inside Loading, including a Skeleton.
     return (
-        <div>
-            <p>Loading...</p>
-        </div>
+            <div className="flex flex-col gap-2 p-3">
+                <p>Loading...</p>
+                <BlogPostCardLoadingFallBackComponent/>
+                <BlogPostCardLoadingFallBackComponent/>
+                <BlogPostCardLoadingFallBackComponent/>
+            </div>
     );
 }
