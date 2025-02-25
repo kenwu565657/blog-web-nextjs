@@ -2,6 +2,7 @@
 
 import React from "react";
 import {Prism as SyntaxHighlighter} from "react-syntax-highlighter";
+import { a11yDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { IoIosCopy } from "react-icons/io";
 import { AiOutlineFileDone } from "react-icons/ai";
 import toast, { Toaster } from 'react-hot-toast';
@@ -16,7 +17,7 @@ interface CopyCodeBoardProps {
 export default function CopyCodeBoard(props: CopyCodeBoardProps) {
     const [isCopied, setIsCopied] = React.useState(false);
 
-    function copyToClipboard(event: React.MouseEvent) {
+    function copyToClipboard() {
         navigator.clipboard.writeText(props.code)
             .then(() => {
                 setIsCopied(true);
@@ -33,10 +34,10 @@ export default function CopyCodeBoard(props: CopyCodeBoardProps) {
     return (
         <div className={'relative'}>
             <Toaster />
-            <div className={'flex flex-row gap-1 justify-start text-black absolute right-4'}>
+            <div className={'flex flex-row gap-1 justify-start absolute right-0.5 text-white'}>
                 <span className={'pt-1'}>{getIconByProgrammingLanguage(props.language)}</span>
                 <span>{props.language ? props.language.toUpperCase() : 'CODE'}</span>
-                <button onClick={e=> copyToClipboard(e)}>
+                <button onClick={() => copyToClipboard()}>
                     {
                         isCopied ?
                             <AiOutlineFileDone className={'text-green-700'}/> :
@@ -52,6 +53,18 @@ export default function CopyCodeBoard(props: CopyCodeBoardProps) {
             <SyntaxHighlighter
                 PreTag="div"
                 language={props.language}
+                className={"overflow-x-auto"}
+                style={a11yDark}
+                wrapLines={true}
+                showLineNumbers={true}
+                showInlineLineNumbers={true}
+                lineProps={lineNumber => {
+                    const style: {color?: string} = {};
+                    if (props.code.split("\n").at(lineNumber - 1)?.trimStart().startsWith("@")) {
+                        style.color = "#FFFF00";
+                    }
+                    return {style};
+                }}
             >
                 {props.code}
             </SyntaxHighlighter>
