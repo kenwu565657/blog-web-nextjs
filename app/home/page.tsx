@@ -1,18 +1,14 @@
-import {findBlogPostSummary} from "@/service/DynamoDB";
-import BlogPostVerticalCard from "@/component/blogpost/BlogPostVerticalCard";
 import HomePagePoster from "@/component/home/HomePagePoster";
+import Link from "next/link";
+import CommonImageComponent from "@/component/common/CommonImageComponent";
 
-export default async function HomePage() {
-    const blogSummaryList = await findBlogPostSummary();
-
+export default function HomePage() {
     return (
         <div>
-            <HomePagePoster />
-            {
-                blogSummaryList.map((blogPostSummary) =>
-                    <BlogPostVerticalCard key={blogPostSummary.id} blogSummary={blogPostSummary} />
-                )
-            }
+            <HomePagePoster/>
+            <Link href="/blogpost">
+                <CommonImageComponent className="mx-auto" src="/icon/contentFarm_logo_transparent_cutted.png" isLocal={true}/>
+            </Link>
         </div>
     );
 }
