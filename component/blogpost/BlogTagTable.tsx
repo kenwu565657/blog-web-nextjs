@@ -1,27 +1,46 @@
-import BlogTag from "@/component/blogpost/BlogTag";
-import {JSX} from "react";
+'use client';
+
+import {JSX, useState} from "react";
 import BlogTagList from "@/component/blogpost/BlogTagList";
 
 interface BlogTagTableProps {
     blogTagNameList: Set<string>;
+    currentSelectedTagList: Set<string>;
 }
 
 export default function BlogTagTable(props: BlogTagTableProps): JSX.Element {
-    return (
-        <div className="bg-emerald-700 max-w-64 border-solid border-2 flex flex-col gap-y-10 p-3 divide-y-5">
-            <h6>Search By Tags</h6>
-            <input></input>
-            <BlogTagList blogTagNameList={props.blogTagNameList}></BlogTagList>
+    const [isOpen, setIsOpen] = useState(false);
+    const openFilterByTag = () => {
+        setIsOpen(true);
+        window.scrollTo(0, 0);
+    }
+    const closeFilterByTag = () => {
+        setIsOpen(false);
+    }
+    const notSelectedTagList: string[] = [...props.blogTagNameList].filter(x => !props.currentSelectedTagList.has(x));
 
-            <div className="w-30 flex flex-row flex-wrap  gap-3 border-t-4 border-solid p-3">
-                {
-                    Array.from(props.blogTagNameList).map((blogTagName) => {
-                        return (
-                            <BlogTag key={blogTagName} tagName={blogTagName} isSelected={false}/>
-                        )
-                    })
-                }
+    return (
+        <>
+            <div
+                className={`fixed right-0 p-2 cursor-pointer border-2 rounded-l-full bg-green-200/95 ${isOpen ? 'hidden' : 'block'} sm:hidden`}>
+                <span className={"hover:font-bold"} onClick={() => openFilterByTag()}>Filter By Tags</span>
             </div>
-        </div>
+            <div className={`p-2 border-2 bg-green-50/95 ${isOpen ? 'block mb-2 static' : 'hidden'} sm:block sm:max-w-64`}>
+                {
+                    isOpen &&
+                    <span
+                        className={"inline-block p-2 cursor-pointer border-2 rounded-r-full bg-green-200/95 hover:font-bold sm:hidden"}
+                        onClick={() => closeFilterByTag()}>Hide Filter By Tags</span>
+                }
+                <div className={`flex flex-col p-2 gap-2`}>
+                    <h6>Filter By Tags</h6>
+                    <h2>Applied Tags</h2>
+                    <BlogTagList blogTagNameList={props.currentSelectedTagList} isSelected={true}></BlogTagList>
+                    <h2>Not Applied Tags</h2>
+                    <BlogTagList blogTagNameList={new Set(notSelectedTagList)} isSelected={false}></BlogTagList>
+                </div>
+            </div>
+        </>
+
     );
 }
