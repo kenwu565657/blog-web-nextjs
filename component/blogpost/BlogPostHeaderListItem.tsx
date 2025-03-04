@@ -15,7 +15,7 @@ export default function BlogPostHeaderListItem(props: BlogPostHeaderProps) {
 
     return (
         <li className={`${paddingClass} ${isActive ? 'border-green-500' : ''} border-l-8 my-2 p-2`}>
-            <CommonImageComponent className={"inline pr-2"} src={getIconFileNameByIsActiveStatus(isActive)} isLocal={true}></CommonImageComponent>
+            <CommonImageComponent height={36} width={36} className={"inline pr-2"} src={getIconFileNameByIsActiveStatus(isActive)} isLocal={true}></CommonImageComponent>
            <a
                className={"hover:font-bold"}
                href={`#${props.blogPostHeader.htmlHeaderType + props.blogPostHeader.orderNumberOfSameHeaderType}`}
