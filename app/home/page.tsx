@@ -7,7 +7,7 @@ export default function HomePage() {
         <div>
             <HomePagePoster/>
             <Link href="/blogpost">
-                <CommonImageComponent className="mx-auto" src="/icon/contentFarm_logo_transparent_cutted.png" isLocal={true}/>
+                <CommonImageComponent className="mx-auto" src="/icon/contentFarm_logo_transparent_cutted.png" isLocal={true} width={600} height={600}/>
             </Link>
         </div>
     );
