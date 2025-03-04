@@ -1,8 +1,10 @@
 'use client';
 
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {useEffect, useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import CommonImageComponent from "@/component/common/CommonImageComponent";
+import {isBlank} from "@/utils/StringUtils";
+import toast, {Toaster} from "react-hot-toast";
 
 export default function SearchInput() {
     const searchInputPlaceholder: string = "Search In ContentFarm ...";
@@ -12,7 +14,7 @@ export default function SearchInput() {
     const { replace } = useRouter();
 
     useEffect(() => {
-        function handleKeyboardEnter(event: KeyboardEvent) {
+        const handleKeyboardEnter = (event: KeyboardEvent) => {
             if (event.code === 'Enter') {
                 handleSearch();
             }
@@ -25,9 +27,13 @@ export default function SearchInput() {
         };
     }, [searchKeywordInputRef]);
 
-    function handleSearch() {
+    const handleSearch = () => {
         let keyword: string|null = null;
         if (searchKeywordInputRef.current) {
+            if (isBlank(searchKeywordInputRef.current.value)) {
+                toast.error("Please enter a valid search keyword.", {duration: 1500});
+                return;
+            }
             keyword = searchKeywordInputRef.current.value;
         }
         const params = new URLSearchParams(searchParams);
@@ -39,6 +45,7 @@ export default function SearchInput() {
 
     return (
         <>
+            <Toaster />
             <div
                 className={'focus:outline-2 w-full flex flex-row justify-start bg-white p-2 rounded-md border border-gray-200'}>
                 <input className='grow-2 w-full p-2 focus:outline-0'

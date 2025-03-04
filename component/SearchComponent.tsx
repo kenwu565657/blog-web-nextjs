@@ -3,10 +3,17 @@
 import { useState } from "react";
 import SearchInputButton from "@/component/SearchInputButton";
 import SearchPopUpModel from "@/component/search/SearchPopUpModel";
+import { usePathname } from 'next/navigation'
 
 export default function SearchComponent() {
     const [isOpen, setIsOpen] = useState(false);
-
+    const pathname = usePathname();
+    const isInSearchPage = pathname.startsWith("/search");
+    if (isInSearchPage) {
+        return (
+            <></>
+        )
+    }
     const openSearchPopUpModel = () => {
         setIsOpen(true);
     }
