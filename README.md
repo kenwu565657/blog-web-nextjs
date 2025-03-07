@@ -1,9 +1,11 @@
+# Blog Web Next.js Repo
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+The project aim is to learn and practice `Next.js`, `Three.js` and `React Three Fiber`.
+Besides, this project is served as the frontend part for my personal blog website, which the backend part can follow [`blogMicroService`](https://github.com/kenwu565657/blogMicroService).
+[`https://github.com/kenwu565657/blogMicroService`](https://github.com/kenwu565657/blogMicroService).
 
 ## Getting Started
-
 First, run the development server:
-
 ```bash
 npm run dev
 # or
@@ -13,24 +15,27 @@ pnpm dev
 # or
 bun dev
 ```
-
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Web Page Screen Shot And Feature Highlight
+Below is some Screen Shot and Feature highlight of the website (i.e. need to start backend part too)
+## 1. 3D Model Using R3F
+![](file_for_readme/screenshot/homePage3DModel.png)
+![](file_for_readme/screenshot/aboutMePage3DModel.png)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 2. Filter Blog Post By Tags
+![](file_for_readme/screenshot/filterBlogPostByTags.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 3. Search Blog Post By Keywords
+![](file_for_readme/screenshot/searchFromHeader.png)
+![](file_for_readme/screenshot/searchPageExample.png)
 
-## Learn More
+## 4. User-Friendly Reading
+### 4.1 Copy Code Block
+![](file_for_readme/screenshot/copyCodeBlockExample.png)
+### 4.2 Header Tracking Table Of Content
+![](file_for_readme/screenshot/headerTrackingTableOfContent.png)
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 5. Responsive Design
+![](file_for_readme/screenshot/blogpostDetailPage_closeTableOfCOntent_responsive.png)
+![](file_for_readme/screenshot/blogpostDetailPage_responsive.png)
+![](file_for_readme/screenshot/blogpostPage_responsive.png)
