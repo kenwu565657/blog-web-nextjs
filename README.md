@@ -1,6 +1,6 @@
 # Blog Web Next.js Repo
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-The project aim is to learn and practice `Next.js`, `Three.js` and `React Three Fiber`.
+The project aims to learn and practice `Next.js`, `Three.js` and `React Three Fiber`.
 Besides, this project is served as the frontend part for my personal blog website, which the backend part can follow [`blogMicroService`](https://github.com/kenwu565657/blogMicroService).
 [`https://github.com/kenwu565657/blogMicroService`](https://github.com/kenwu565657/blogMicroService).
 
@@ -17,7 +17,7 @@ bun dev
 ```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 ## Web Page Screen Shot And Feature Highlight
-Below is some Screen Shot and Feature highlight of the website (i.e. need to start backend part too)
+Below is some Screen Shot and Feature highlight of the website (i.e. need to start backend part too).
 ## 1. 3D Model Using R3F
 ![](file_for_readme/screenshot/homePage3DModel.png)
 ![](file_for_readme/screenshot/aboutMePage3DModel.png)
@@ -36,6 +36,6 @@ Below is some Screen Shot and Feature highlight of the website (i.e. need to sta
 ![](file_for_readme/screenshot/headerTrackingTableOfContent.png)
 
 ## 5. Responsive Design
-![](file_for_readme/screenshot/blogpostDetailPage_closeTableOfCOntent_responsive.png)
+![](file_for_readme/screenshot/blogpostDetailPage_closeTableOfContent_responsive.png)
 ![](file_for_readme/screenshot/blogpostDetailPage_responsive.png)
 ![](file_for_readme/screenshot/blogpostPage_responsive.png)
