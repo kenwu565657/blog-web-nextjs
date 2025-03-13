@@ -1,13 +1,14 @@
 import {Suspense, useRef} from "react";
 import {useThree, Canvas, useLoader, useFrame, extend} from "@react-three/fiber";
 import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader.js";
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+//import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { OrbitControls } from "@react-three/drei";
 import {Text3D, useAnimations, Float} from "@react-three/drei";
 import {Light, Mesh, AnimationAction} from "three";
 import ModelLoadingPlaceHolder from "@/component/3dModelComponent/ModelLoadingPlaceHolder";
 import FarmLand from "@/component/3dModelComponent/FarmLand";
 
-extend({ OrbitControls })
+//extend({ OrbitControls })
 
 function FarmingScene() {
     const { camera, gl } = useThree();
@@ -45,7 +46,12 @@ function FarmingScene() {
 
                 <directionalLight ref={directionalLight} position={[2, 2, 3]} intensity={3}/>
                 <ambientLight intensity={1.5}/>
-                <orbitControls args={[camera, gl.domElement]}/>
+                <OrbitControls></OrbitControls>
+                {
+                    /**
+                    <orbitControls args={[camera, gl.domElement]}/>
+                    */
+                }
                 <Float>
                     <Text3D font="./fonts/helvetiker_regular.typeface.json"
                             size={ 1.0 }
