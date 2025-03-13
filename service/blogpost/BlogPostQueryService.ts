@@ -2,7 +2,11 @@ import {getBackendGatewayEndPoint} from "@/utils/EnvironmentVariableUtils";
 
 export async function queryBlogPostContentMarkdownFile(): Promise<string> {
     const backendGatewayEndPoint: string = getBackendGatewayEndPoint();
-    const res = await fetch(`${backendGatewayEndPoint}/blogpost/content/markdown/testing_blog3.md`);
+    const res = await fetch(`${backendGatewayEndPoint}/blogpost/content/markdown/testing_blog3.md`, {
+        next: {
+            revalidate: 3000
+        }
+    });
     if (!res.ok) {
         throw Error("Failed");
     }
