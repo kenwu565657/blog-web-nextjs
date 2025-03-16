@@ -1,4 +1,6 @@
 # Blog Web Next.js Repo
+To access the website, can get to https://www.contentfarm-info.com.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 The project aims to learn and practice `Next.js`, `Three.js` and `React Three Fiber`.
 Besides, this project is served as the frontend part for my personal blog website, which the backend part can follow [`blogMicroService`](https://github.com/kenwu565657/blogMicroService).
