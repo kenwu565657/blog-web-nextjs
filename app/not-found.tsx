@@ -1,5 +1,11 @@
+import NotFoundPagePoster from "@/component/common/NotFoundPagePoster";
+
 export default function NotFoundPage() {
     return (
-        <p>Oops, Page Not Found</p>
+        <div>
+            <p>Oops, Page Not Found.</p>
+            <NotFoundPagePoster></NotFoundPagePoster>
+        </div>
+
     )
 }
