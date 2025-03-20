@@ -2,32 +2,46 @@ import {SearchResult} from "@/interface/search/SearchResult";
 import {BlogPostSearchResult} from "@/interface/blogpost/BlogPostSearchResult";
 import {BlogPostSummary} from "@/interface/blogpost/BlogPostSummary";
 import {getBackendGatewayEndPoint} from "@/utils/EnvironmentVariableUtils";
+import {ApiResponse} from "@/interface/common/ApiResponse";
 
-export async function searchBlogPostByKeyword(keyword: string, pageNumber: number): Promise<SearchResult<BlogPostSearchResult>> {
+export async function searchBlogPostByKeyword(keyword: string, pageNumber: number = 0): Promise<ApiResponse<SearchResult<BlogPostSearchResult>>> {
     const backendGatewayEndPoint: string = getBackendGatewayEndPoint();
-    const res = await fetch(`${backendGatewayEndPoint}/search/blogpost?keyword=${keyword}`);
+    const res = await fetch(`${backendGatewayEndPoint}/blogpost/search?keyword=${keyword}&pageNumber=${pageNumber}`);
     if (!res.ok) {
-        throw Error("Failed");
+        return {isSuccess: false, failureMessage: "", data: null};
     }
-    return await res.json();
+    const json = await res.json();
+    return {isSuccess: true, failureMessage: "", data: json};
 }
 
-export async function searchBlogPostSummaryByTagList(tagList: string): Promise<SearchResult<BlogPostSearchResult>> {
+export async function searchBlogPostSummaryByTagList(tagList: string): Promise<ApiResponse<SearchResult<BlogPostSearchResult>>> {
     const backendGatewayEndPoint: string = getBackendGatewayEndPoint();
-    const res = await fetch(`${backendGatewayEndPoint}/search/blogpost?tagList=${tagList}`);
+    const res = await fetch(`${backendGatewayEndPoint}/blogpost/search?tagList=${tagList}`);
     if (!res.ok) {
-        throw Error("Failed");
+        return {isSuccess: false, failureMessage: "", data: null};
     }
-    return await res.json();
+    const json = await res.json();
+    return {isSuccess: true, failureMessage: "", data: json};
 }
 
-export async function searchBlogPostSummary(): Promise<SearchResult<BlogPostSearchResult>> {
+export async function searchBlogPostSummary(): Promise<ApiResponse<SearchResult<BlogPostSearchResult>>> {
     const backendGatewayEndPoint: string = getBackendGatewayEndPoint();
-    const res = await fetch(`${backendGatewayEndPoint}/search/blogpost`);
+    const res = await fetch(`${backendGatewayEndPoint}/blogpost/search`);
     if (!res.ok) {
-        throw Error("Failed");
+        return {isSuccess: false, failureMessage: "", data: null};
     }
-    return await res.json();
+    const json = await res.json();
+    return {isSuccess: true, failureMessage: "", data: json};
+}
+
+export async function searchBlogPostSummaryByBlogPostId(blogPostId: string): Promise<ApiResponse<BlogPostSearchResult>> {
+    const backendGatewayEndPoint: string = getBackendGatewayEndPoint();
+    const res = await fetch(`${backendGatewayEndPoint}/blogpost/search/${blogPostId}`);
+    if (!res.ok) {
+        return {isSuccess: false, failureMessage: "", data: null};
+    }
+    const json = await res.json();
+    return {isSuccess: true, failureMessage: null, data: json};
 }
 
 export function blogPostSearchResultToBlogPostSummaryList(searchResult: SearchResult<BlogPostSearchResult>): BlogPostSummary[] {
@@ -35,6 +49,15 @@ export function blogPostSearchResultToBlogPostSummaryList(searchResult: SearchRe
         return [];
     }
     return searchResult.searchResultItemList.map(x => singleBlogPostSearchResultToBlogPostSummary(x));
+}
+
+export function getEmptySearchResult(): SearchResult<BlogPostSearchResult> {
+    return {
+        searchResultCount: 0,
+        searchExecutionTimeInMs: 0,
+        maxSearchScore: 0,
+        searchResultItemList: []
+    };
 }
 
 function singleBlogPostSearchResultToBlogPostSummary(blogPostSearchResult: BlogPostSearchResult): BlogPostSummary {

@@ -1,23 +1,26 @@
 import {getBackendGatewayEndPoint} from "@/utils/EnvironmentVariableUtils";
+import {ApiResponse} from "@/interface/common/ApiResponse";
 
-export async function queryBlogPostContentMarkdownFile(): Promise<string> {
+export async function queryBlogPostContentMarkdownFile(blogPostId: string): Promise<ApiResponse<string>> {
     const backendGatewayEndPoint: string = getBackendGatewayEndPoint();
-    const res = await fetch(`${backendGatewayEndPoint}/blogpost/content/markdown/testing_blog3.md`, {
+    const res = await fetch(`${backendGatewayEndPoint}/blogpost/${blogPostId}/content/markdown`, {
         next: {
             revalidate: 3000
         }
     });
     if (!res.ok) {
-        throw Error("Failed");
+        return {isSuccess: false, failureMessage: "", data: null};
     }
-    return await res.text();
+    const text = await res.text();
+    return {isSuccess: true, failureMessage: null, data: text};
 }
 
-export async function findBlogPostTags(): Promise<string[]> {
+export async function findBlogPostTags(): Promise<ApiResponse<string[]>> {
     const backendGatewayEndPoint: string = getBackendGatewayEndPoint();
     const res = await fetch(`${backendGatewayEndPoint}/blogpost/tag/list`);
     if (!res.ok) {
-        throw Error("Failed");
+        return {isSuccess: false, failureMessage: "", data: null};
     }
-    return await res.json();
+    const json = await res.json();
+    return {isSuccess: true, failureMessage: null, data: json};
 }

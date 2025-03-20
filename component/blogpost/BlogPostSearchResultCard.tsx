@@ -14,8 +14,11 @@ export default function BlogPostSearchResultCard(props: BlogPostSearchResultCard
     const isHaveTag: boolean = props.blogPostSingleSearchResult.tagList.length > 0;
 
     return (
-        <Link href={blogPostContentLink} className="drop-shadow-md m-1 bg-white text-start border flex flex-row hover:bg-gray-200">
-            <CommonImageComponent className="min-w-48" src={props.blogPostSingleSearchResult.imageUrl}></CommonImageComponent>
+        <Link href={blogPostContentLink}
+              className="drop-shadow-md m-1 bg-white text-start border flex flex-row hover:bg-gray-200">
+            <div className="my-auto min-w-24 max-w-48">
+                <CommonImageComponent src={props.blogPostSingleSearchResult.imageUrl}></CommonImageComponent>
+            </div>
             <div className="flex flex-col gap-y-1.5 leading-normal m-1">
                 <h1 className="text-2xl font-bold">{props.blogPostSingleSearchResult.title}</h1>
                 <p className="leading-tight">{props.blogPostSingleSearchResult.summary}</p>

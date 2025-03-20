@@ -2,20 +2,28 @@ import Markdown, {Components} from "react-markdown";
 import {queryBlogPostContentMarkdownFile} from "@/service/blogpost/BlogPostQueryService";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import {extractAllHeaderFromMarkdown} from "@/utils/MarkdownUtils";
 import BlogPostHeaderList from "@/component/blogpost/BlogPostHeaderList";
 import {Suspense} from "react";
 import CopyCodeBoard from "@/component/blogpost/CopyCodeBoard";
 import CommonImageComponent from "@/component/common/CommonImageComponent";
+import {ApiResponse} from "@/interface/common/ApiResponse";
 
 interface BlogPostContentProps {
     blogpostId: string;
 }
 
 export default async function BlogPostContent(props: BlogPostContentProps) {
-    const contentMarkdownFile: string = await queryBlogPostContentMarkdownFile();
+    const apiResponse:ApiResponse<string> = await queryBlogPostContentMarkdownFile(props.blogpostId);
+    if (!apiResponse.isSuccess || !apiResponse.data) {
+        // todo: add ui design
+        return (
+            <div>
+                <p>Cannot Fetch This Blog Post. Please Try Other Blog Post.</p>
+            </div>
+        );
+    }
+    const contentMarkdownFile: string = apiResponse.data;
     const counter: number[] = [0, 0, 0, 0, 0, 0];
     const components: Components = {
         code(props) {
@@ -102,7 +110,7 @@ export default async function BlogPostContent(props: BlogPostContentProps) {
     const headerList: string[] = extractAllHeaderFromMarkdown(contentMarkdownFile);
 
     return (
-        <div className='flex flex-row box-border'>
+        <div className='flex flex-row box-border xl:max-w-[90vw]'>
                 <article className={'grow-1 prose max-w-full text-xs md:text-sm xl:text-base md:max-w-1/3 xl:m-2'}>
                     <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={components}>
                         {contentMarkdownFile}

@@ -3,10 +3,13 @@ import BlogTagTable from "@/component/blogpost/BlogTagTable";
 import {findBlogPostTags} from "@/service/blogpost/BlogPostQueryService";
 import {BlogPostSummary} from "@/interface/blogpost/BlogPostSummary";
 import {
-    blogPostSearchResultToBlogPostSummaryList,
+    blogPostSearchResultToBlogPostSummaryList, getEmptySearchResult,
     searchBlogPostSummary,
     searchBlogPostSummaryByTagList
 } from "@/service/blogpost/BlogPostSearchService";
+import {ApiResponse} from "@/interface/common/ApiResponse";
+import {SearchResult} from "@/interface/search/SearchResult";
+import {BlogPostSearchResult} from "@/interface/blogpost/BlogPostSearchResult";
 
 export default async function BlogPostPage(props: {
     searchParams?: Promise<{
@@ -14,17 +17,29 @@ export default async function BlogPostPage(props: {
     }>;
 }) {
     const searchParams = await props.searchParams;
-    let blogSummaryList: BlogPostSummary[] = [];
+    let blogSummaryList: BlogPostSummary[];
     let currentSelectedTagList: string[] = [];
     if (searchParams && searchParams.tagList) {
-        const searchResult = await searchBlogPostSummaryByTagList(searchParams.tagList);
+        let searchResult = getEmptySearchResult();
+        const apiResponse: ApiResponse<SearchResult<BlogPostSearchResult>> = await searchBlogPostSummaryByTagList(searchParams.tagList);
+        if (apiResponse.isSuccess && apiResponse.data) {
+            searchResult = apiResponse.data;
+        }
         blogSummaryList = blogPostSearchResultToBlogPostSummaryList(searchResult);
         currentSelectedTagList = searchParams.tagList.split(",");
     } else {
-        const searchResult = await searchBlogPostSummary();
+        let searchResult = getEmptySearchResult();
+        const apiResponse: ApiResponse<SearchResult<BlogPostSearchResult>> = await searchBlogPostSummary();
+        if (apiResponse.isSuccess && apiResponse.data) {
+            searchResult = apiResponse.data;
+        }
         blogSummaryList = blogPostSearchResultToBlogPostSummaryList(searchResult);
     }
-    const blogTagList = await findBlogPostTags();
+    let blogTagList: string[] = [];
+    const apiResponse = await findBlogPostTags();
+    if (apiResponse.isSuccess && apiResponse.data) {
+        blogTagList = apiResponse.data;
+    }
 
     return (
         <div className="flex flex-col-reverse sm:flex-row">
