@@ -16,7 +16,9 @@ const BlogPostCard = (props: BlogPostCardProps) => {
 
     return (
         <Link href={blogPostContentLink} className={blogPostCardContainerStyle}>
-            <CommonImageComponent className={"min-w-48"} src={props.blogSummary.imageUrl}></CommonImageComponent>
+            <div className="my-auto min-w-24 max-w-48">
+                <CommonImageComponent src={props.blogSummary.imageUrl}></CommonImageComponent>
+            </div>
             <div className={"flex flex-col gap-y-1.5 leading-normal m-1"}>
                 <h1 className={"text-2xl font-bold"}>{props.blogSummary.title}</h1>
                 <p className={"leading-tight"}>{props.blogSummary.summary}</p>
@@ -26,7 +28,7 @@ const BlogPostCard = (props: BlogPostCardProps) => {
                         </BlogTagList>
                     )
                 }
-                <div className="flex flex-row justify-start gap-5 items-center">
+                <div className="flex flex-col md:flex-row justify-start gap-5 items-start md:items-center">
                     <Calendar date={props.blogSummary.postDate}/>
                     <BlogPostAuthorIcon></BlogPostAuthorIcon>
                     <span className="justify-center">{props.blogSummary.authorName}</span>
