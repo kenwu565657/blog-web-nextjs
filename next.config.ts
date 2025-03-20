@@ -52,10 +52,15 @@ const nextConfig: NextConfig = {
             {
                 protocol: 'http',
                 hostname: 'localhost',
-                port: '',
-                pathname: '/multimedia/image/**',
+                pathname: '/api/multimedia/image/**',
                 search: '',
             },
+            {
+                protocol: 'http',
+                hostname: 'ec2-43-206-162-75.ap-northeast-1.compute.amazonaws.com',
+                pathname: '/api/multimedia/image/**',
+                search: '',
+            }
         ],
     }
 
