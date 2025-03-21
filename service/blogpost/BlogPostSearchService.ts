@@ -6,7 +6,11 @@ import {ApiResponse} from "@/interface/common/ApiResponse";
 
 export async function searchBlogPostByKeyword(keyword: string, pageNumber: number = 0): Promise<ApiResponse<SearchResult<BlogPostSearchResult>>> {
     const backendGatewayEndPoint: string = getBackendGatewayEndPoint();
-    const res = await fetch(`${backendGatewayEndPoint}/blogpost/search?keyword=${keyword}&pageNumber=${pageNumber}`);
+    const res = await fetch(`${backendGatewayEndPoint}/blogpost/search?keyword=${keyword}&pageNumber=${pageNumber}`, {
+        next: {
+            revalidate: 3600
+        }
+    });
     if (!res.ok) {
         return {isSuccess: false, failureMessage: "", data: null};
     }
@@ -16,7 +20,11 @@ export async function searchBlogPostByKeyword(keyword: string, pageNumber: numbe
 
 export async function searchBlogPostSummaryByTagList(tagList: string): Promise<ApiResponse<SearchResult<BlogPostSearchResult>>> {
     const backendGatewayEndPoint: string = getBackendGatewayEndPoint();
-    const res = await fetch(`${backendGatewayEndPoint}/blogpost/search?tagList=${tagList}`);
+    const res = await fetch(`${backendGatewayEndPoint}/blogpost/search?tagList=${tagList}`, {
+        next: {
+            revalidate: 3600
+        }
+    });
     if (!res.ok) {
         return {isSuccess: false, failureMessage: "", data: null};
     }
@@ -26,7 +34,11 @@ export async function searchBlogPostSummaryByTagList(tagList: string): Promise<A
 
 export async function searchBlogPostSummary(): Promise<ApiResponse<SearchResult<BlogPostSearchResult>>> {
     const backendGatewayEndPoint: string = getBackendGatewayEndPoint();
-    const res = await fetch(`${backendGatewayEndPoint}/blogpost/search`);
+    const res = await fetch(`${backendGatewayEndPoint}/blogpost/search`, {
+        next: {
+            revalidate: 3600
+        }
+    });
     if (!res.ok) {
         return {isSuccess: false, failureMessage: "", data: null};
     }
@@ -36,7 +48,11 @@ export async function searchBlogPostSummary(): Promise<ApiResponse<SearchResult<
 
 export async function searchBlogPostSummaryByBlogPostId(blogPostId: string): Promise<ApiResponse<BlogPostSearchResult>> {
     const backendGatewayEndPoint: string = getBackendGatewayEndPoint();
-    const res = await fetch(`${backendGatewayEndPoint}/blogpost/search/${blogPostId}`);
+    const res = await fetch(`${backendGatewayEndPoint}/blogpost/search/${blogPostId}`, {
+        next: {
+            revalidate: 3600
+        }
+    });
     if (!res.ok) {
         return {isSuccess: false, failureMessage: "", data: null};
     }

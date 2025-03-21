@@ -5,7 +5,7 @@ export async function queryBlogPostContentMarkdownFile(blogPostId: string): Prom
     const backendGatewayEndPoint: string = getBackendGatewayEndPoint();
     const res = await fetch(`${backendGatewayEndPoint}/blogpost/${blogPostId}/content/markdown`, {
         next: {
-            revalidate: 3000
+            revalidate: 3600
         }
     });
     if (!res.ok) {
@@ -17,7 +17,11 @@ export async function queryBlogPostContentMarkdownFile(blogPostId: string): Prom
 
 export async function findBlogPostTags(): Promise<ApiResponse<string[]>> {
     const backendGatewayEndPoint: string = getBackendGatewayEndPoint();
-    const res = await fetch(`${backendGatewayEndPoint}/blogpost/tag/list`);
+    const res = await fetch(`${backendGatewayEndPoint}/blogpost/tag/list`, {
+        next: {
+            revalidate: 3600
+        }
+    });
     if (!res.ok) {
         return {isSuccess: false, failureMessage: "", data: null};
     }
