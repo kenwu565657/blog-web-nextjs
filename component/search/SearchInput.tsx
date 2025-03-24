@@ -60,7 +60,7 @@ export default function SearchInput() {
             </div>
             <div className={"flex flex-row items-center"}>
                 <CommonImageComponent height={48} width={48} src="/icon/elasticsearch_icon.svg" isLocal={true}></CommonImageComponent>
-                <span className={""}>Search Powered By Elastic Search</span>
+                <span className={""}>Search Powered By Elasticsearch</span>
             </div>
         </>
     );
