@@ -17,6 +17,9 @@ export default function HeaderMenu() {
             <NavigationLink href={"/about"}>
                 <span className={linkStyle}>About Me</span>
             </NavigationLink>
+            <NavigationLink href={"/how-to"}>
+                <span className={linkStyle}>How To</span>
+            </NavigationLink>
         </div>
     );
 }
