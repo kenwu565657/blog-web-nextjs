@@ -2,7 +2,6 @@ import matter from "gray-matter";
 import {BlogPostContent} from "@/interface/blogpost/BlogPostContent";
 import {BlogPostHeader} from "@/interface/blogpost/BlogPostHeader";
 
-
 export function readMarkdownFile(markdownFileContent: string): BlogPostContent {
     const { data, content } = matter(markdownFileContent);
     return {

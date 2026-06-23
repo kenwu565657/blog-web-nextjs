@@ -12,13 +12,16 @@ export default function HeaderMenu() {
                 <span className={linkStyle}>Home Page</span>
             </NavigationLink>
             <NavigationLink href={"/blogpost"}>
-                <span className={linkStyle}>Blog Posts</span>
-            </NavigationLink>
-            <NavigationLink href={"/about"}>
-                <span className={linkStyle}>About Me</span>
+                <span className={linkStyle}>Blog Post</span>
             </NavigationLink>
             <NavigationLink href={"/how-to"}>
                 <span className={linkStyle}>How To</span>
+            </NavigationLink>
+            <NavigationLink href={"/project"}>
+                <span className={linkStyle}>Project</span>
+            </NavigationLink>
+            <NavigationLink href={"/about"}>
+                <span className={linkStyle}>About Me</span>
             </NavigationLink>
         </div>
     );
