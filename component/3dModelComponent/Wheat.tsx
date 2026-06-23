@@ -2,7 +2,7 @@ import {BufferAttribute, Float32BufferAttribute, InstancedBufferAttribute, Norma
 import WheatShaderMaterial from "@/component/3dModelComponent/WheatShaderMaterial";
 
 export default function Wheat() {
-    const numberOfWheat: number = 5000;
+    const numberOfWheat: number = 6000;
     const w: number = 1;
     const d: number = 1;
     const h: number = 0;
@@ -30,12 +30,12 @@ export default function Wheat() {
     uv.push(1.0, 1.0);
 
     for( let i = 0 ; i < numberOfWheat ; i++ ){
-    const posiX = Math.random() * w - w/2;
-    const posiY = h;
-    const posiZ = Math.random() * d - d/2;
-    po.push( posiX, posiY, posiZ );
-    const angle = Math.random()*360;
-    angles.push( angle );
+        const posiX = Math.random() * w - w/2;
+        const posiY = h;
+        const posiZ = Math.random() * d - d/2;
+        po.push( posiX, posiY, posiZ );
+        const angle = Math.random() * 360;
+        angles.push( angle );
     }
 
     const positionAttribute = new Float32BufferAttribute( position, 3 );
@@ -51,8 +51,6 @@ export default function Wheat() {
             "po": poAttribute,
             "angle": angleAttribute,
         };
-
-
 
     return (
         <group>

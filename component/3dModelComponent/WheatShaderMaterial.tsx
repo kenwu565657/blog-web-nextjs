@@ -1,31 +1,28 @@
 import {ShaderMaterial, TextureLoader} from "three";
-import {useRef} from "react";
+import {useMemo, useRef} from "react";
 import {useFrame} from "@react-three/fiber";
-
-interface WheatShaderMaterialProps {
-    po: number[],
-    angle: number[]
-}
 
 // learn from https://github.com/JERROMY/JERROMY.github.io
 // learn from https://www.youtube.com/watch?v=RYtJH2Lrrhw&t=1004s
 export default function WheatShaderMaterial() {
     const ref = useRef<ShaderMaterial|null>(null);
 
-    useFrame(() => {
+    useFrame(({ clock }) => {
         if (ref.current) {
-            ref.current.uniforms.time.value = Date.now();
+            ref.current.uniforms.time.value = clock.elapsedTime;
         }
     });
 
-    const wheatTexture = new TextureLoader().load("/texture/wheat.jpeg");
-    const wheatShapeTexture = new TextureLoader().load("/texture/wheatShape.png");
+    const uniforms = useMemo(() => {
+        const wheatTexture = new TextureLoader().load("/texture/wheat.jpeg");
+        const wheatShapeTexture = new TextureLoader().load("/texture/wheatShape.png");
 
-    const uniforms = {
-        "wheatTexture": { value: wheatTexture},
-        "wheatShapeTexture": {value: wheatShapeTexture},
-        "time": {value: Date.now()}
-    };
+        return {
+            "wheatTexture": { value: wheatTexture},
+            "wheatShapeTexture": {value: wheatShapeTexture},
+            "time": {value: 0.0}
+        };
+    }, []);
 
     return (
       <shaderMaterial
@@ -51,43 +48,33 @@ varying vec2 vUv;
 varying vec3 vPosition;
 varying float vAngle;
 
-vec4 quat_from_axis_angle(vec3 axis, float angle){ 
-    vec4 qr;
-    float half_angle = (angle * 0.5) * 3.14159 / 180.0;
-    qr.x = axis.x * sin(half_angle);
-    qr.y = axis.y * sin(half_angle);
-    qr.z = axis.z * sin(half_angle);
-    qr.w = cos(half_angle);
-    return qr;
-}
-
-vec3 rotate_vertex_position(vec3 position, vec3 axis, float angle){
-
-    vec4 q = quat_from_axis_angle(axis, angle);
-    vec3 v = position.xyz;
-    return v + 2.0 * cross(q.xyz, cross(q.xyz, v) + q.w * v);
-
-}
-
 void main()
 {
     
     vUv = uv;
     vAngle = angle;
 
-    vec3 upDir = vec3(0.0, 1.0, 0.0);
-
     vec3 finalPosi = position;
-    finalPosi.x *= 0.1;
+    finalPosi.x *= 0.05;
     finalPosi.y *= 1.0;
     finalPosi.y += 0.5;
 
-    finalPosi = rotate_vertex_position(finalPosi, upDir, vAngle);
+    float bladeSeed = vAngle * 0.731 + po.x * 17.23 + po.z * 31.77;
+    float randomSpeed = 0.6 + fract(sin(bladeSeed + 9.91) * 12678.3344) * 0.35;
+    float randomPhase = fract(sin(bladeSeed + 15.73) * 43215.9988);
+    float initAngle = (fract(sin(bladeSeed + 27.13) * 28657.2141) - 0.5) * 0.34906585;
+    float directionSign = step(0.5, fract(sin(bladeSeed + 41.81) * 19643.1173)) * 2.0 - 1.0;
+    float randomAngleScale = 0.75 + fract(sin(bladeSeed + 53.27) * 29874.7711) * 0.5;
+    float headWeight = clamp(1.0 - uv.y, 0.0, 1.0);
+    float maxAngle = 1.2217305;
+    float bendAngle = initAngle + directionSign * sin(time * randomSpeed * 6.2831853 + randomPhase * 6.2831853) * (maxAngle * randomAngleScale) * headWeight;
 
-    if( finalPosi.y > 0.5 ){
-        finalPosi.x = ( finalPosi.x + sin( time / 1000.0 * ( vAngle * 0.01 )  ) * 0.05 );
-        finalPosi.z = ( finalPosi.z + cos( time / 1000.0 * ( vAngle * 0.01 )  ) * 0.05 );
-    }
+    vec2 rel = vec2(finalPosi.x, finalPosi.z);
+    float s = sin(bendAngle);
+    float c = cos(bendAngle);
+    vec2 bentRel = vec2(rel.x * c - rel.y * s, rel.x * s + rel.y * c);
+    finalPosi.x = bentRel.x;
+    finalPosi.z = bentRel.y;
 
     finalPosi = po + finalPosi;
     

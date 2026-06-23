@@ -1,5 +1,5 @@
 import {Suspense, useRef} from "react";
-import {useThree, Canvas, useLoader, useFrame, extend} from "@react-three/fiber";
+import {useThree, Canvas, useLoader, useFrame} from "@react-three/fiber";
 import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader.js";
 //import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { OrbitControls } from "@react-three/drei";
