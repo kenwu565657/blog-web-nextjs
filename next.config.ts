@@ -1,37 +1,32 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-    eslint: {
-        ignoreDuringBuilds: true
-    },
     output: "standalone",
-    experimental: {
-        turbo: {
-            rules: {
-                '*.glsl': {
-                    loaders: ['raw-loader']
-                },
-                '*.jpeg': {
-                    loaders: ['raw-loader']
-                },
-                '*.txt': {
-                    loaders: ['raw-loader']
-                },
-                resolveExtensions: [
-                    '.mdx',
-                    '.tsx',
-                    '.ts',
-                    '.jsx',
-                    '.js',
-                    '.mjs',
-                    '.json',
-                    '.glsl',
-                    '.txt',
-                    '.jpeg',
-                    '.png'
-                ]
+    turbopack: {
+        rules: {
+            '*.glsl': {
+                loaders: ['raw-loader']
+            },
+            '*.jpeg': {
+                loaders: ['raw-loader']
+            },
+            '*.txt': {
+                loaders: ['raw-loader']
             }
-        }
+        },
+        resolveExtensions: [
+            '.mdx',
+            '.tsx',
+            '.ts',
+            '.jsx',
+            '.js',
+            '.mjs',
+            '.json',
+            '.glsl',
+            '.txt',
+            '.jpeg',
+            '.png'
+        ]
     },
     webpack (config) {
         config.module.rules.push({

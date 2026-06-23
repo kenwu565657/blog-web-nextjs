@@ -98,9 +98,10 @@ export default async function BlogPostContent(props: BlogPostContentProps) {
         },
         img(props) {
             const {className, src} = props;
+            const imageSrc = typeof src === "string" ? src : undefined;
             return (
                 <CommonImageComponent
-                    src={src}
+                    src={imageSrc}
                     className={className}
                 >
                 </CommonImageComponent>
