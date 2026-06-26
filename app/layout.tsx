@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/component/Header";
 import React from "react";
 import ToTopButton from "@/component/common/ToTopButton";
+import Footer from "@/component/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,13 +29,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={"scroll-smooth"}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen flex flex-col antialiased`}
       >
-      <Header></Header>
-      <ToTopButton></ToTopButton>
-      <div className="relative">
-          {children}
-      </div>
+        <Header></Header>
+        <ToTopButton></ToTopButton>
+        <main className="relative flex-1">
+            {children}
+        </main>
+        <Footer></Footer>
       </body>
     </html>
   );
